@@ -1,5 +1,3 @@
-import './styles.css';
-
 import { useState, useRef, useEffect, KeyboardEvent } from 'react';
 
 export default function SmsField() {
@@ -25,7 +23,7 @@ export default function SmsField() {
 
   const handleCode = (e: KeyboardEvent<HTMLInputElement>, flag: string) => {
     //cons
-    let val = e.target.value!.trim()!;
+    let val = e.target.value.trim();
     let key = e.keyCode;
     //one
 
