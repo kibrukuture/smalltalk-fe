@@ -1,8 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Dirt&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Rubik+Dirt&display=swap');
 body {
   height: 100vh;
   background: #0b0f0f;
