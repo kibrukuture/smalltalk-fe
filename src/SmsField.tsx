@@ -74,10 +74,10 @@ export default function SmsField() {
     <div className=''>
       <img src='/android-chrome-384x384.png' alt='' className='w-[200px] my-10' />
       <div className='App'>
-        <input maxLength={1} type='text' onKeyUp={(e) => handleCode(e, 'one')} ref={refOne} className={`${focus === 'one' && focusStyle}`} />
-        <input maxLength={1} type='text' onKeyUp={(e) => handleCode(e, 'two')} ref={refTwo} className={`${focus === 'two' && focusStyle}`} />
-        <input maxLength={1} type='text' onKeyUp={(e) => handleCode(e, 'three')} ref={refThree} className={`${focus === 'three' && focusStyle}`} />
-        <input maxLength={1} type='text' onKeyUp={(e) => handleCode(e, 'four')} ref={refFour} className={`${focus === 'four' && focusStyle}`} />
+        <input maxLength={1} type='text' onKeyUp={(e) => handleCode(e, 'one')} ref={refOne} className={`p-2 ${focus === 'one' && focusStyle}`} />
+        <input maxLength={1} type='text' onKeyUp={(e) => handleCode(e, 'two')} ref={refTwo} className={`p-2 ${focus === 'two' && focusStyle}`} />
+        <input maxLength={1} type='text' onKeyUp={(e) => handleCode(e, 'three')} ref={refThree} className={`p-2 ${focus === 'three' && focusStyle}`} />
+        <input maxLength={1} type='text' onKeyUp={(e) => handleCode(e, 'four')} ref={refFour} className={`p-2 ${focus === 'four' && focusStyle}`} />
       </div>
 
       <p className='flex gap-2 items-center italic font-mono mt-5'>
