@@ -72,6 +72,7 @@ export default function SmsField() {
   const focusStyle = 'outline outline-2 outline-gray-400';
   return (
     <div className=''>
+      <img src='/android-chrome-384x384.png' alt='' className='w-[200px] my-10' />
       <div className='App'>
         <input maxLength={1} type='text' onKeyUp={(e) => handleCode(e, 'one')} ref={refOne} className={`${focus === 'one' && focusStyle}`} />
         <input maxLength={1} type='text' onKeyUp={(e) => handleCode(e, 'two')} ref={refTwo} className={`${focus === 'two' && focusStyle}`} />
