@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.animating_the_most_disgusting_tailwind_animation {
+  color: red;
+}
