@@ -71,11 +71,20 @@ export default function SmsField() {
 
   const focusStyle = 'outline outline-2 outline-gray-400';
   return (
-    <div className='App'>
-      <input maxLength={1} type='text' onKeyUp={(e) => handleCode(e, 'one')} ref={refOne} className={`${focus === 'one' && focusStyle}`} />
-      <input maxLength={1} type='text' onKeyUp={(e) => handleCode(e, 'two')} ref={refTwo} className={`${focus === 'two' && focusStyle}`} />
-      <input maxLength={1} type='text' onKeyUp={(e) => handleCode(e, 'three')} ref={refThree} className={`${focus === 'three' && focusStyle}`} />
-      <input maxLength={1} type='text' onKeyUp={(e) => handleCode(e, 'four')} ref={refFour} className={`${focus === 'four' && focusStyle}`} />
+    <div className=''>
+      <div className='App'>
+        <input maxLength={1} type='text' onKeyUp={(e) => handleCode(e, 'one')} ref={refOne} className={`${focus === 'one' && focusStyle}`} />
+        <input maxLength={1} type='text' onKeyUp={(e) => handleCode(e, 'two')} ref={refTwo} className={`${focus === 'two' && focusStyle}`} />
+        <input maxLength={1} type='text' onKeyUp={(e) => handleCode(e, 'three')} ref={refThree} className={`${focus === 'three' && focusStyle}`} />
+        <input maxLength={1} type='text' onKeyUp={(e) => handleCode(e, 'four')} ref={refFour} className={`${focus === 'four' && focusStyle}`} />
+      </div>
+
+      <p className='flex gap-2 items-center italic font-mono mt-5'>
+        <span>{one}</span>
+        <span>{two}</span>
+        <span>{three}</span>
+        <span>{four}</span>
+      </p>
     </div>
   );
 }
