@@ -2,10 +2,10 @@ import { useState, useRef, useEffect, KeyboardEvent } from 'react';
 
 export default function SmsField() {
   //
-  const [one, setOne] = useState('');
-  const [two, setTwo] = useState('');
-  const [three, setThree] = useState('');
-  const [four, setFour] = useState('');
+  const [one, setOne] = useState();
+  const [two, setTwo] = useState();
+  const [three, setThree] = useState();
+  const [four, setFour] = useState();
   const [focus, setFocus] = useState('one');
   //
   //refs
