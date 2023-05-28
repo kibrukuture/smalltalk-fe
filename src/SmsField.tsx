@@ -2,10 +2,10 @@ import { useState, useRef, useEffect, KeyboardEvent } from 'react';
 
 export default function SmsField() {
   //
-  const [one, setOne] = useState();
-  const [two, setTwo] = useState();
-  const [three, setThree] = useState();
-  const [four, setFour] = useState();
+  const [one, setOne] = useState('');
+  const [two, setTwo] = useState('');
+  const [three, setThree] = useState('');
+  const [four, setFour] = useState('');
   const [focus, setFocus] = useState('one');
   //
   //refs
@@ -73,10 +73,10 @@ export default function SmsField() {
   return (
     <div className=''>
       <div className='App'>
-        <input maxLength={1} type='text' onKeyUp={(e) => handleCode(e, 'one')} ref={refOne} className={`${focus === 'one' && focusStyle}`} />
-        <input maxLength={1} type='text' onKeyUp={(e) => handleCode(e, 'two')} ref={refTwo} className={`${focus === 'two' && focusStyle}`} />
-        <input maxLength={1} type='text' onKeyUp={(e) => handleCode(e, 'three')} ref={refThree} className={`${focus === 'three' && focusStyle}`} />
-        <input maxLength={1} type='text' onKeyUp={(e) => handleCode(e, 'four')} ref={refFour} className={`${focus === 'four' && focusStyle}`} />
+        <input value={one} maxLength={1} type='text' onKeyUp={(e) => handleCode(e, 'one')} ref={refOne} className={`${focus === 'one' && focusStyle}`} />
+        <input value={two} maxLength={1} type='text' onKeyUp={(e) => handleCode(e, 'two')} ref={refTwo} className={`${focus === 'two' && focusStyle}`} />
+        <input value={three} maxLength={1} type='text' onKeyUp={(e) => handleCode(e, 'three')} ref={refThree} className={`${focus === 'three' && focusStyle}`} />
+        <input value={four} maxLength={1} type='text' onKeyUp={(e) => handleCode(e, 'four')} ref={refFour} className={`${focus === 'four' && focusStyle}`} />
       </div>
 
       <p className='flex gap-2 items-center italic font-mono mt-5'>
