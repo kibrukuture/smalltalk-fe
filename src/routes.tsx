@@ -11,7 +11,7 @@ export default function AppRoutes() {
       <Route path='/signup' element={<SignUp />} />
       <Route path='/chat' element={<Chat />} />
       <Route path='/doc/end-to-end' element={<EndToEnd />} />
-      <Route path='*' element={<div>404</div>} />
+      <Route path='*' element={<div className='flex hover h-screen items-center justify-center'>404 | Your're lost</div>} />
     </Routes>
   );
 }
