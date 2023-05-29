@@ -388,5 +388,5 @@ export async function scrapWebsite(url: string) {
 }
 
 export function hostedAt() {
-  return true ? 'tolbel-express-server-production.up.railway.app' : 'localhost:8000';
+  return 'https://tolbel-express-server-production.up.railway.app';
 }
