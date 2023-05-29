@@ -39,7 +39,7 @@ export default function SignUp() {
   return (
     <div className='h-screen gap-md md:gap-lg flex items-center justify-center mx-auto w-[70%] md:w-[50%] lg:w-[35%]'>
       <div className='flex flex-col gap-sm grow'>
-        <h1 className='text-3xl font-bold text-teal-400 font-code'>smalltalk</h1>
+        <h1 className='text-3xl font-bold text-teal-400 font-code'>tolbel</h1>
         <form onSubmit={onFormSubmit} className='flex flex-col gap-sm font-mono text-sm '>
           <h2 className='my-md italic'>Sign Up</h2>
           <div className='flex flex-col gap-sm'>
@@ -155,7 +155,7 @@ export default function SignUp() {
           <p>
             Already have a
             <strong className='px-md'>
-              <i>Smalltalk</i>
+              <i>tolbel</i>
             </strong>
             account?
             <br />
