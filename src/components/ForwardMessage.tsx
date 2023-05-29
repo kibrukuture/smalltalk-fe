@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, useContext } from 'react';
 import { Message, ChatContext } from '../ChatContext';
 import { RiCloseFill, RiShareForward2Line } from 'react-icons/ri';
-import { getInitials, getColorFromName } from '../util.fns';
+import { getInitials, getColorFromName, hostedAt } from '../util.fns';
 import { User } from '../ChatContext';
 
 export default function ForwardMessage({
@@ -43,7 +43,7 @@ export default function ForwardMessage({
       return;
     }
     (async function () {
-      const res = await fetch(`http://localhost:4040/api/user/all-connected-friends/${user.userId}`);
+      const res = await fetch(`${hostedAt()}/api/user/all-connected-friends/${user.userId}`);
 
       const data = await res.json();
 

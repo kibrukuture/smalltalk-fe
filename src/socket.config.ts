@@ -1,3 +1,4 @@
 import { io } from 'socket.io-client';
-const socket = io('ws://localhost:4040/', { transports: ['websocket'] });
+import { hostedAt } from './util.fns';
+const socket = io(`ws://${hostedAt()}`, { transports: ['websocket'] });
 export default socket;

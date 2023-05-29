@@ -139,7 +139,7 @@ export function getColorFromName(name: string) {
 
 export async function isLoggedIn() {
   const logInToken = localStorage.getItem('logInToken');
-  const res = await fetch('http://localhost:4040/api/user', {
+  const res = await fetch(`${hostedAt()}/api/user`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -380,9 +380,13 @@ export function formatFileSize(size: number) {
 
 // /api/opengraphscrapper
 export async function scrapWebsite(url: string) {
-  const response = await fetch(`http://localhost:4040/api/opengraphscrapper/?url=${url}`, {
+  const response = await fetch(`${hostedAt()}/api/opengraphscrapper/?url=${url}`, {
     method: 'GET',
   });
   const data = await response.json();
   return data;
+}
+
+export function hostedAt() {
+  return import.meta.env.prod ? import.meta.env.VITE_REMOTE_HOST : import.meta.env.VITE_LOCAL_HOST;
 }

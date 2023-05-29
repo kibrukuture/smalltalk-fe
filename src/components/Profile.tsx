@@ -1,6 +1,6 @@
 import React, { useState, useRef, useContext } from 'react';
 import { RiEditLine, RiAddFill } from 'react-icons/ri';
-import { distanceToNow } from '../util.fns';
+import { distanceToNow, hostedAt } from '../util.fns';
 import imageCompression from 'browser-image-compression';
 import { ChatContext } from '../ChatContext';
 
@@ -82,7 +82,7 @@ export default function Profile() {
             // make post request to server
             //  dataUrl, userId, fileName
             const user = JSON.parse(localStorage.getItem('user') as string);
-            const res = await fetch('http://localhost:4040/api/user/upload-profile-picture', {
+            const res = await fetch(`${hostedAt()}/api/user/upload-profile-picture`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
@@ -241,7 +241,7 @@ export default function Profile() {
 }
 
 async function updateProfile(type: string, value: string, userId: string, setUser: any) {
-  const res = await fetch('http://localhost:4040/api/user/update', {
+  const res = await fetch(`${hostedAt()}/api/user/update`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
