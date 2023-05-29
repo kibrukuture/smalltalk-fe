@@ -3,7 +3,7 @@
 import { useContext } from 'react';
 import { ChatContext, User } from '../ChatContext';
 import socket from '../socket.config';
-import { getColorFromName, getInitials } from '../util.fns';
+import { getColorFromName, getInitials, hostedAt } from '../util.fns';
 import { RiCloseFill } from 'react-icons/ri';
 
 export default function Notificstion() {
@@ -69,7 +69,7 @@ function ConnectionRequest(friendRequestSendingUser: User) {
 async function processFriendRequest(id: string, action: string) {
   const receiverId = JSON.parse(localStorage.getItem('user') || '{}').userId;
 
-  const res = await fetch('http://localhost:4040/api/user/accept-decline-request', {
+  const res = await fetch(`${hostedAt()}/api/user/accept-decline-request`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

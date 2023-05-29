@@ -12,9 +12,10 @@ import Notificstion from '../components/Notification';
 import Settings from '../components/Settings';
 // import { useRouter } from 'next/navigation';
 import { useNavigate } from 'react-router-dom';
-import { addNewMessage, deleteConversation } from '../util.fns';
+import { addNewMessage, deleteConversation, hostedAt } from '../util.fns';
 import { User } from '../ChatContext';
 import Calling from '../components/Calling';
+
 // import Peer from 'peerjs';
 
 // select tab
@@ -65,7 +66,7 @@ export default function Chat() {
     }
     // load all chats.
     setIsAllChatsLoading(true);
-    fetch(`http://localhost:4040/api/loadchats/${JSON.parse(localStorage.getItem('user') as string).userId}`, {
+    fetch(`${hostedAt()}/api/loadchats/${JSON.parse(localStorage.getItem('user') as string).userId}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -82,7 +83,7 @@ export default function Chat() {
       });
 
     // fetch all friend request.
-    fetch(`http://localhost:4040/api/user/friend-requests/${JSON.parse(localStorage.getItem('user') as string).userId}`, {
+    fetch(`${hostedAt()}/api/user/friend-requests/${JSON.parse(localStorage.getItem('user') as string).userId}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

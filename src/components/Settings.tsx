@@ -1,6 +1,7 @@
 import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ChatContext } from '../ChatContext';
+import { hostedAt } from '../util.fns';
 
 export default function Settings() {
   const [deleteAccountModal, setDeleteAccountModal] = useState(false);
@@ -137,7 +138,7 @@ function DeleteAccountModal({ setDeleteAccountModal }: { setDeleteAccountModal: 
     const id = user.id;
 
     // delete account
-    const res = await fetch(`http://localhost:4040/api/user/${id}`, {
+    const res = await fetch(`${hostedAt()}/api/user/${id}`, {
       method: 'DELETE',
     });
     const data = await res.json();

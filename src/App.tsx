@@ -7,6 +7,7 @@ import AlertMessage from './components/AlertMessage';
 import { ChatContext, LastSeen, User, Alert, UserProfile, Room, Error, SearchResult, Chats, AllChats, Typing, Tab, Theme } from './ChatContext';
 import { RiCloseFill } from 'react-icons/ri';
 import AppRoutes from './routes';
+import { hostedAt } from './util.fns';
 
 export default function RootLayout() {
   // all states
@@ -46,7 +47,7 @@ export default function RootLayout() {
   }, [theme]);
 
   const onUserSignIn = async (usr: { email: string; password: string }) => {
-    const data = await handleFetch('http://localhost:4040/signin', 'POST', usr);
+    const data = await handleFetch(`${hostedAt()}/signin`, 'POST', usr);
 
     if (data.status === 'ok') {
       console.log(data);
@@ -82,7 +83,7 @@ export default function RootLayout() {
 
   const onUserSignUp = async (usr: User) => {
     //{ email: '', password: '', name: '', userName: '' }
-    const data = await handleFetch('http://localhost:4040/signup', 'POST', usr);
+    const data = await handleFetch(`${hostedAt()}/signup`, 'POST', usr);
     if (data.status === 'ok') {
       setError({
         signIn: '',

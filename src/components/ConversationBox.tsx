@@ -2,8 +2,7 @@
 import socket from '../socket.config';
 import { useState, useContext } from 'react';
 import { ChatContext, AllChats, SearchResult, User, Alert, Room } from '../ChatContext';
-import { formatAmPm } from '../util.fns';
-import { getColorFromName, getInitials } from '../util.fns';
+import { getColorFromName, getInitials, formatAmPm, hostedAt } from '../util.fns';
 
 export default function ConversationBox() {
   //state
@@ -30,7 +29,7 @@ export default function ConversationBox() {
 
     if (searchItem === '') return;
 
-    const res = await fetch('http://localhost:4040/api/search', {
+    const res = await fetch(`${hostedAt()}/api/search`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
