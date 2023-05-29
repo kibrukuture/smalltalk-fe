@@ -1,6 +1,7 @@
 import { useEffect, useRef, useContext, useState } from 'react';
 import Draggable from 'react-draggable';
-import { User, ChatContext } from '../ChatContext';
+import { User } from '../ChatContext';
+import { ChatContext } from '../ChatContext';
 import ChatRoomContext from '../ChatRoomContext';
 import { RiMicFill, RiMicOffFill, RiPhoneFill, RiArrowDropDownLine, RiArrowDropUpLine } from 'react-icons/ri';
 
@@ -52,7 +53,7 @@ export default function ShowVideoCallDisplayer({
     //get local video
     let localStream: MediaStream;
 
-    if (typeof window !== 'undefined') {
+    if (typeof navigator !== 'undefined') {
       (async () => {
         localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
         setVideoStream(localStream);
@@ -120,7 +121,7 @@ export default function ShowVideoCallDisplayer({
       })();
     }
     return () => {
-      socket.emit('EndCall', {
+      socket.emit('EndCsall', {
         roomId: currentOpenChatId,
         remotePeer: user,
       });
