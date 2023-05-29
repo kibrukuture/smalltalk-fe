@@ -1,7 +1,7 @@
 export default function EndToEnd() {
   return (
     <div className=' font-mono text-lg pt-xl flex flex-col gap-md mx-auto w-[80%] md:w-[75%] lg:w-[60%] '>
-      <h1 className='text-3xl font-mono'>How smalltalk&apos;s end-to-end encryption works?</h1>
+      <h1 className='text-3xl font-mono'>How tolbel&apos;s end-to-end encryption works?</h1>
       <p>End-to-end encryption (E2EE) is a method of secure communication that ensures that only the sender and the intended recipient can access the data being transferred. This is achieved by encrypting the data at the sender&apos;s end and decrypting it at the recipient&apos;s end, with the encryption keys stored only on the endpoints. This approach uses public key encryption, which stores private keys on the endpoint, and is often used in the finance, healthcare, and communications industries to comply with data privacy and security regulations and laws.</p>
       <p>The encryption process begins with the sender&apos;s device generating a unique key pair consisting of a public key and a private key. The public key is shared with the recipient, while the private key is kept secret. When the sender sends a message, it is encrypted using the recipient&apos;s public key, which can only be decrypted using the recipient&apos;s private key. This ensures that only the intended recipient can read the message.</p>
       <p>End-to-end encryption is used in various applications, including messaging apps, email services, and cloud storage. It provides a high level of data privacy, ensuring that the data is secure in transit and at rest. It also protects against man-in-the-middle attacks, where an attacker intercepts the communication and alters the data being transferred.</p>

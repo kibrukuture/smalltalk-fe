@@ -4,7 +4,7 @@ export default function NoChatSelected() {
   return (
     <div className='flex select-none w-full flex-col max-h-screen h-screen  items-center justify-center   '>
       <div className='text-skin-muted font-mono flex flex-col items-center '>
-        <h1 className='font-code text-2xl md:text-4xl my-xl '>smalltalk</h1>
+        <h1 className='font-code text-2xl md:text-4xl my-xl '>tolbel</h1>
 
         <div className='w-1/4'>
           <img src='/social.svg' alt='' className='pointer-events-none select-none' />
