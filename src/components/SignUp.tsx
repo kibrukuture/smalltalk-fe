@@ -45,6 +45,7 @@ export default function SignUp() {
           <div className='flex flex-col gap-sm'>
             <label aria-label='Name'>
               <input
+                autoComplete='on'
                 placeholder='Name'
                 value={user.name}
                 onChange={(e) =>
@@ -62,6 +63,7 @@ export default function SignUp() {
           <div className='flex flex-col gap-sm'>
             <label aria-label='userName'>
               <input
+                autoComplete='on'
                 placeholder='userName'
                 value={user.userName}
                 onChange={(e) =>
@@ -79,6 +81,7 @@ export default function SignUp() {
           <div className='flex flex-col gap-sm'>
             <label aria-label='Email'>
               <input
+                autoComplete='on'
                 placeholder='Email'
                 value={user.email}
                 onChange={(e) =>
@@ -96,6 +99,7 @@ export default function SignUp() {
           <div className='flex flex-col gap-sm relative'>
             <label aria-label='Password' className='relative'>
               <input
+                autoComplete='on'
                 onFocus={() => setPasswordFocused(true)}
                 onBlur={() => setPasswordFocused(false)}
                 placeholder='Password'
