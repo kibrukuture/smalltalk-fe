@@ -1,6 +1,6 @@
 import { useState, useContext } from 'react';
-import { useRouter } from 'next/navigation';
-import { ChatContext } from '@/app/ChatContext';
+import { useNavigate } from 'react-router-dom';
+import { ChatContext } from '../ChatContext';
 
 export default function Settings() {
   const [deleteAccountModal, setDeleteAccountModal] = useState(false);
@@ -128,7 +128,7 @@ function Galleries() {
 // delete account && redirect to login
 function DeleteAccountModal({ setDeleteAccountModal }: { setDeleteAccountModal: React.Dispatch<React.SetStateAction<boolean>> }) {
   const [accoundDeleting, setAccountDeleting] = useState(false);
-  const router = useRouter();
+  const navigate = useNavigate();
   // perform account deletion
   const onAccountDelete = async () => {
     setAccountDeleting(true);
@@ -151,7 +151,7 @@ function DeleteAccountModal({ setDeleteAccountModal }: { setDeleteAccountModal: 
     // remove modal
     setDeleteAccountModal(false);
     // redirect to login
-    router.push('/');
+    navigate('/');
   };
   if (accoundDeleting)
     return (

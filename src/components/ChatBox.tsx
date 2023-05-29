@@ -1,21 +1,21 @@
 'use client';
 import React, { useState, useEffect, useContext, useRef } from 'react';
-import { ChatContext, Message, Room, BinFile, User, Link, EmojiType } from '@/app/ChatContext';
+import { ChatContext, Message, Room, BinFile, User, Link, EmojiType } from '../ChatContext';
 import { RiVidiconFill, RiImageLine, RiFileLine, RiArrowGoBackFill, RiAttachmentLine, RiPhoneFill, RiMore2Fill, RiSendPlaneFill, RiLock2Fill, RiMic2Line, RiDeleteBin6Line, RiDeleteBin6Fill, RiCamera3Line, RiLink } from 'react-icons/ri';
-import ChatRoomContext, { RemotePeerVideoCallingStatus } from '@/app/ChatRoomContext';
+import ChatRoomContext, { RemotePeerVideoCallingStatus } from '../ChatRoomContext';
 import { BsEmojiLaughingFill } from 'react-icons/bs';
 import Conversation from './Conversation';
-import socket from '@/app/socket.config';
+import socket from '../socket.config';
 import Attachment from './chatbox-sub-comp/Attachment';
-import { formatAmPm } from '@/app/util.fns';
+import { formatAmPm } from '../util.fns';
 import ThreeDotAnimation from './chatbox-sub-comp/TypingAnim';
 import { v4 as uuidv4 } from 'uuid';
 import BinaryFileModal from './chatbox-sub-comp/BinaryFileModal';
 import BinFileLoading from './chatbox-sub-comp/BinFileLoadig';
-import { addNewMessage, scrapWebsite } from '@/app/util.fns';
+import { addNewMessage, scrapWebsite } from '../util.fns';
 import data from '@emoji-mart/data';
 import Picker from '@emoji-mart/react';
-import { ContextMenuTrigger } from 'react-contextmenu';
+import { ContextMenuTrigger, ContextMenu, ContextMenuItem } from 'rctx-contextmenu';
 import ChatBoxContextMenu from './ChatBoxContextMenu';
 import VideoCallDisplayer from './VideoCallDisplayer';
 import VoiceCallDisplayer from './VoiceCallDisplayer';
@@ -27,7 +27,7 @@ import ImageViewer from './ImageViewer';
 import ReplyMessage from './ReplyMessage';
 import ForwardMessage from './ForwardMessage';
 import * as linkify from 'linkifyjs';
-// import { formatTime } from '@/app/util.fns';
+// import { formatTime } from '../util.fns';
 // import Peer, { MediaConnection } from 'peerjs';
 
 export default function ChatBox() {

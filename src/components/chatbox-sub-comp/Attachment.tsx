@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import BinaryFileModal from './BinaryFileModal';
 import { RiFileLine, RiImageLine } from 'react-icons/ri';
-import { BinFile } from '@/app/ChatContext';
+import { BinFile } from '../../ChatContext';
 
 export default function Attachment({ setShowAttachment, setBinFile, setShowBinaryFileModal, setBinFileLoading }: { setShowAttachment: React.Dispatch<React.SetStateAction<boolean>>; setBinFile: React.Dispatch<React.SetStateAction<BinFile>>; setShowBinaryFileModal: React.Dispatch<React.SetStateAction<boolean>>; setBinFileLoading: React.Dispatch<React.SetStateAction<boolean>> }) {
   // const [showBinaryFileModal, setShowBinaryFileModal] = useState(false);

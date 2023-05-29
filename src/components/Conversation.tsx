@@ -1,17 +1,18 @@
 import { useContext, useEffect, useRef, useState, TouchEvent, MouseEvent } from 'react';
 import { RiAddFill, RiLink, RiCheckDoubleLine, RiDeleteBinLine, RiCheckLine, RiReplyLine, RiFileCopy2Line, RiShareForward2Line } from 'react-icons/ri';
-import { formatAmPm, getColorFromName, getInitials } from '@/app/util.fns';
-import { Message, User, Attachment, EmojiType, Room } from '@/app/ChatContext';
-import { distanceToNow } from '@/app/util.fns';
-import { ChatContext } from '@/app/ChatContext';
-import Link from 'next/link';
+import { formatAmPm, getColorFromName, getInitials } from '../util.fns';
+import { Message, User, Attachment, EmojiType, Room } from '../ChatContext';
+import { distanceToNow } from '../util.fns';
+import { ChatContext } from '../ChatContext';
+// import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import AudioFile from './chatbox-sub-comp/attachment-related/AudioFile';
 import ImageFile from './chatbox-sub-comp/attachment-related/ImageFile';
 import VideoFile from './chatbox-sub-comp/attachment-related/VideoFile';
 import DocumentFile from './chatbox-sub-comp/attachment-related/DocumentFile';
 import { ContextMenu, MenuItem, ContextMenuTrigger } from 'react-contextmenu';
 import RepliedMessage from './RepliedMessage';
-import socket from '@/app/socket.config';
+import socket from '../socket.config';
 
 // import ImageViewer from './ImageViewer';
 
@@ -129,7 +130,7 @@ export default function Conversation({
             </div>
             {/* ${getColorFromName(emojiBelongsto!.name)} */}
             {message.link && (
-              <Link href={message.link.url} target='_blank'>
+              <Link to={message.link.url} target='_blank'>
                 <div className='ml-sm border-l-2 border-l-gray-800  bg-transparent   p-2 flex flex-col gap-sm font-mono my-4  '>
                   <img src={message.link.imageUrl} alt={message.link.title} className='' />
                   <p className='text-xs'>{message.link.siteName}</p>

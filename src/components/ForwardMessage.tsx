@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState, useContext } from 'react';
-import { Message, ChatContext } from '@/app/ChatContext';
+import { Message, ChatContext } from '../ChatContext';
 import { RiCloseFill, RiShareForward2Line } from 'react-icons/ri';
-import { getInitials, getColorFromName } from '@/app/util.fns';
-import { User } from '@/app/ChatContext';
+import { getInitials, getColorFromName } from '../util.fns';
+import { User } from '../ChatContext';
 
 export default function ForwardMessage({
   setForwardMessage,

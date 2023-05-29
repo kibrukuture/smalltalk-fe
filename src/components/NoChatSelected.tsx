@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import { RiLock2Fill } from 'react-icons/ri';
 export default function NoChatSelected() {
   return (

@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useRef, useContext } from 'react';
+import React, { useState, useRef, useContext } from 'react';
 import { RiEditLine, RiAddFill } from 'react-icons/ri';
-import { distanceToNow } from '@/app/util.fns';
+import { distanceToNow } from '../util.fns';
 import imageCompression from 'browser-image-compression';
-import { ChatContext } from '@/app/ChatContext';
+import { ChatContext } from '../ChatContext';
 
 export default function Profile() {
   // consume context
@@ -16,7 +16,7 @@ export default function Profile() {
   const [name, setName] = useState(user.name);
   const [userName, setuserName] = useState(user.userName);
   const [bio, setBio] = useState(user.bio || '很抱歉，​我不会说中文。');
-  const [profile, setProfile] = useState();
+  // const [profile, setProfile] = useState();
   const [mouseEnter, setMouseEnter] = useState({
     name: false,
     userName: false,

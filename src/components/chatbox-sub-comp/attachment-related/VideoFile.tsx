@@ -1,8 +1,8 @@
 import { useEffect, useRef } from 'react';
 import { RiPlayFill } from 'react-icons/ri';
-import { Attachment } from '@/app/ChatContext';
-import { formatFileSize, formatTime } from '@/app/util.fns';
-import MediaPlayer from '@/components/MediaPlayer';
+import { Attachment } from '../../../ChatContext';
+import { formatFileSize, formatTime } from '../../../util.fns';
+import MediaPlayer from '../../MediaPlayer';
 
 export default function VideoFile({ attachment }: { attachment: Attachment }) {
   const vidRef = useRef(null);

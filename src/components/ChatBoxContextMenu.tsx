@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { ChatContext } from '@/app/ChatContext';
+import { ChatContext } from '../ChatContext';
 import { ContextMenu, MenuItem } from 'react-contextmenu';
 import { RiUser6Line, RiEraserLine, RiCloseLine, RiDeleteBinLine } from 'react-icons/ri';
 

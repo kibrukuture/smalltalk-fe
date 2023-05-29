@@ -1,9 +1,9 @@
 'use client';
-import socket from '@/app/socket.config';
+import socket from '../socket.config';
 import { useState, useContext } from 'react';
-import { ChatContext, AllChats, SearchResult, User, Alert, Room } from '@/app/ChatContext';
-import { formatAmPm } from '@/app/util.fns';
-import { getColorFromName, getInitials } from '@/app/util.fns';
+import { ChatContext, AllChats, SearchResult, User, Alert, Room } from '../ChatContext';
+import { formatAmPm } from '../util.fns';
+import { getColorFromName, getInitials } from '../util.fns';
 
 export default function ConversationBox() {
   //state

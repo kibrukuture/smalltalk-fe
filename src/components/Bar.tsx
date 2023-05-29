@@ -1,8 +1,9 @@
 'use client';
 import { RiMessage3Line, RiNotification3Line, RiSettings3Line, RiLogoutCircleLine, RiUser6Line } from 'react-icons/ri';
 import { useState, useEffect, useContext } from 'react';
-import { useRouter } from 'next/navigation';
-import { ChatContext, Tab } from '@/app/ChatContext';
+// import { useRouter } from 'next/navigation';
+import { useNavigate } from 'react-router-dom';
+import { ChatContext, Tab } from '../ChatContext';
 
 export const tabs = ['chat', 'notification', 'setting', 'profile'];
 export default function Bar() {
@@ -10,7 +11,7 @@ export default function Bar() {
 
   const { setBarCurrentTab, barCurrentTab, friendRequests } = useContext(ChatContext);
 
-  const router = useRouter();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -26,7 +27,7 @@ export default function Bar() {
     localStorage.removeItem('logInToken');
     localStorage.removeItem('user');
     // redirect to login page
-    router.push('/');
+    navigate('/');
   };
 
   const onBarCurrentTab = (e: any, tab: Tab) => setBarCurrentTab(tab);

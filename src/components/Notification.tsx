@@ -1,10 +1,10 @@
 // Date: 09/10/21
-import { distanceToNow } from '@/app/util.fns';
+
+import { useContext } from 'react';
+import { ChatContext, User } from '../ChatContext';
+import socket from '../socket.config';
+import { getColorFromName, getInitials } from '../util.fns';
 import { RiCloseFill } from 'react-icons/ri';
-import { useContext, useEffect, useState } from 'react';
-import { ChatContext, User } from '@/app/ChatContext';
-import socket from '@/app/socket.config';
-import { getColorFromName, getInitials } from '@/app/util.fns';
 
 export default function Notificstion() {
   const { friendRequests, setFriendRequests, setCurrentOpenChatId } = useContext(ChatContext);
