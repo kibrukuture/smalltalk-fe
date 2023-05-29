@@ -3,7 +3,6 @@ import { User } from '../ChatContext';
 import { RiDownloadLine, RiZoomInLine, RiZoomOutLine, RiCloseFill } from 'react-icons/ri';
 import { Attachment } from '../ChatContext';
 import { formatFileSize } from '../util.fns';
-import { format } from 'path';
 
 export default function ImageViewer({
   imageViewer,
@@ -42,7 +41,7 @@ export default function ImageViewer({
   return (
     <div
       onClick={(e) => {
-        if (e.target.id === 'image-viewer-container') {
+        if (e.target.id! === 'image-viewer-container') {
           setImageViewer((prev) => ({ ...prev, show: false }));
         }
       }}

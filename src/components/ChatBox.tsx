@@ -8,18 +8,17 @@ import Conversation from './Conversation';
 import socket from '../socket.config';
 import Attachment from './chatbox-sub-comp/Attachment';
 import { formatAmPm } from '../util.fns';
-import ThreeDotAnimation from './chatbox-sub-comp/TypingAnim';
+// import ThreeDotAnimation from './chatbox-sub-comp/TypingAnim';
 import { v4 as uuidv4 } from 'uuid';
 import BinaryFileModal from './chatbox-sub-comp/BinaryFileModal';
 import BinFileLoading from './chatbox-sub-comp/BinFileLoadig';
 import { addNewMessage, scrapWebsite } from '../util.fns';
 import data from '@emoji-mart/data';
 import Picker from '@emoji-mart/react';
-import { ContextMenuTrigger, ContextMenu, ContextMenuItem } from 'rctx-contextmenu';
+import { ContextMenuTrigger } from 'rctx-contextmenu';
 import ChatBoxContextMenu from './ChatBoxContextMenu';
 import VideoCallDisplayer from './VideoCallDisplayer';
 import VoiceCallDisplayer from './VoiceCallDisplayer';
-import AnsweringAudioCall from './AnsweringAudioCall';
 import NoChatSelected from './NoChatSelected';
 import Timer from './Timer';
 import CapturePicture from './CapturePicture';
@@ -515,7 +514,7 @@ export default function ChatBox() {
           <ChatBoxContextMenu />
         </ContextMenuTrigger>
 
-        {showAnsweringAudioCall && <AnsweringAudioCall />}
+        {/* {showAnsweringAudioCall && <AnsweringAudioCall />} */}
         {showVideoCallDisplayer && <VideoCallDisplayer setShowVideoCallDisplayer={setShowVideoCallDisplayer} remotePeerOnlineStatus={remotePeerOnlineStatus} outGoingCallAudioRef={outGoingCallAudioRef} />}
         {showVoiceCallDisplayer && <VoiceCallDisplayer setShowVoiceCallDisplayer={setShowVoiceCallDisplayer} remotePeerOnlineStatus={remotePeerOnlineStatus} outGoingCallAudioRef={outGoingCallAudioRef} />}
       </div>
