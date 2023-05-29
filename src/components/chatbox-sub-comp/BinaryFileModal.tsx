@@ -1,10 +1,10 @@
 import { useState, useContext, useEffect, useRef } from 'react';
-import { User, BinFile, Message, Room, Attachment } from '@/app/ChatContext';
+import { User, BinFile, Message, Room, Attachment, EmojiType } from '../../ChatContext';
 import { RiCloseFill, RiSendPlaneFill, RiPlayFill, RiPauseFill } from 'react-icons/ri';
-import socket from '@/app/socket.config';
-import { ChatContext } from '@/app/ChatContext';
+import socket from '../../socket.config';
+import { ChatContext } from '../../ChatContext';
 import { v4 as uuidv4 } from 'uuid';
-import { addNewMessage, getFileTypeColors, formatTime, abbreviateName, formatFileSize } from '@/app/util.fns';
+import { addNewMessage, getFileTypeColors, formatTime, abbreviateName, formatFileSize } from '../../util.fns';
 export default function BinaryFileModal({ binFile, setShowBinaryFileModal }: { binFile: BinFile; setShowBinaryFileModal: (show: boolean) => void }) {
   const user = JSON.parse(localStorage.getItem('user') as string) as User;
 
@@ -46,9 +46,9 @@ export default function BinaryFileModal({ binFile, setShowBinaryFileModal }: { b
       text: caption,
       createdAt: new Date().toISOString(),
       updatedAt: null,
-      message: [],
+      message: {} as Message | null,
       replyId: null,
-      emoji: '',
+      emoji: null as EmojiType | null,
       link: null,
       attachment: {
         messageId,

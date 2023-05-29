@@ -1,8 +1,8 @@
 import React, { useRef, useState } from 'react';
-import { User } from '@/app/ChatContext';
+import { User } from '../ChatContext';
 import { RiDownloadLine, RiZoomInLine, RiZoomOutLine, RiCloseFill } from 'react-icons/ri';
-import { Attachment } from '@/app/ChatContext';
-import { formatFileSize } from '@/app/util.fns';
+import { Attachment } from '../ChatContext';
+import { formatFileSize } from '../util.fns';
 import { format } from 'path';
 
 export default function ImageViewer({

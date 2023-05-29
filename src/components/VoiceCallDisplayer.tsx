@@ -1,10 +1,9 @@
 import { useEffect, useRef, useContext, useState } from 'react';
 import Draggable from 'react-draggable';
-import { User } from '@/app/ChatContext';
-import { ChatContext } from '@/app/ChatContext';
-import ChatRoomContext from '@/app/ChatRoomContext';
+import { User, ChatContext } from '../ChatContext';
+import ChatRoomContext from '../ChatRoomContext';
 import { RiMicFill, RiMicOffFill, RiPhoneFill, RiArrowDropDownLine, RiArrowDropUpLine } from 'react-icons/ri';
-import socket from '@/app/socket.config';
+import socket from '../socket.config';
 
 export default function VoiceCallDisplayer({
   setShowVoiceCallDisplayer,

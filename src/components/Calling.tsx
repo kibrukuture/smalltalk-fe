@@ -1,10 +1,10 @@
 import { useRef, useEffect, useContext } from 'react';
 import { RiPhoneFill, RiChatVoiceFill, RiVideoChatFill } from 'react-icons/ri';
-import { User } from '@/app/ChatContext';
+import { User } from '../ChatContext';
 import Draggable from 'react-draggable';
-import socket from '@/app/socket.config';
-import ChatRoomContext, { RemotePeerVideoCallingStatus } from '@/app/ChatRoomContext';
-import { ChatContext } from '@/app/ChatContext';
+import socket from '../socket.config';
+import ChatRoomContext, { RemotePeerVideoCallingStatus } from '../ChatRoomContext';
+import { ChatContext } from '../ChatContext';
 import Peer from 'peerjs';
 
 const user = JSON.parse(localStorage.getItem('user')!) as User;

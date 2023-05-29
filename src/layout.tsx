@@ -1,14 +1,14 @@
 'use client';
-import './globals.css';
-import { useEffect, useState, StrictMode } from 'react';
-import { useRouter } from 'next/navigation';
-import AlertMessage from '@/components/AlertMessage';
-import { ChatContext, LastSeen, User, Alert, UserProfile, Room, Error, SearchResult, Chats, AllChats, Typing, Tab, Theme, Connection } from '@/app/ChatContext';
+import './index.css';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+// import { useRouter } from 'next/navigation';
+import AlertMessage from './components/AlertMessage';
+import { ChatContext, LastSeen, User, Alert, UserProfile, Room, Error, SearchResult, Chats, AllChats, Typing, Tab, Theme } from './ChatContext';
 import { RiCloseFill } from 'react-icons/ri';
-import Head from 'next/head';
+import AppRoutes from './routes';
 
-type SetRoom = (rooms: Map<string, Room>) => Map<string, Room>;
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout() {
   // all states
   const [error, setError] = useState<Error>({
       signIn: '',
@@ -39,44 +39,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     [isChatRoomTapped, setIsChatRoomTapped] = useState(false);
 
   // router
-  const router = useRouter();
-
-  // useEffect(() => {
-  //   if (!allChats.length) return;
-  //   setTyping(
-  //     allChats
-  //       .map((chat) => chat.id)
-  //       .map((id) => ({
-  //         id,
-  //         typing: false,
-  //       })),
-  //   );
-  //   return () => setTyping([]); //empty typing array on unmount
-  // }, []);
+  const navigate = useNavigate();
 
   useEffect(() => {
     localStorage.setItem('theme', theme);
   }, [theme]);
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const stunServer = [
-        { urls: 'stun:stun.l.google.com:19302' },
-        { urls: 'stun:stun1.l.google.com:19302' },
-        { urls: 'stun:stun2.l.google.com:19302' },
-        { urls: 'stun:stun3.l.google.com:19302' },
-        { urls: 'stun:stun4.l.google.com:19302' },
-        { urls: 'stun:stun.stunprotocol.org:3478' },
-        { urls: 'stun:stun.services.mozilla.com:3478' },
-        //more stun servers
-      ];
-      // Create a RTCPeerConnection object
-      const peerConnection = new RTCPeerConnection({ iceServers: stunServer });
-      peerConnection.addEventListener('icecandidate', (event) => console.log(event.candidate));
-
-      console.log(peerConnection);
-    }
-  }, []);
 
   const onUserSignIn = async (usr: { email: string; password: string }) => {
     const data = await handleFetch('http://localhost:4040/signin', 'POST', usr);
@@ -109,7 +76,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         signUp: '',
       });
       // success sign in
-      router.push('/chat');
+      navigate('/chat');
     } else setError((prev) => ({ ...prev, signIn: data.message })); // could not sign in
   };
 
@@ -138,7 +105,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         });
       }, 10000);
       // success sign in
-      router.push('/');
+      navigate('/');
     } else setError((prev) => ({ ...prev, signUp: data.message })); // could not sign in
   };
 
@@ -154,7 +121,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   // console.log('all rooms: ', rooms, currentOpenChatId);
   return (
     <html lang='en'>
-      <Head>
+      <head>
         <link rel='apple-touch-icon' sizes='180x180' href='/favicons/apple-touch-icon.png' />
         <link rel='icon' type='image/png' sizes='32x32' href='/favicons/favicon-32x32.png' />
         <link rel='icon' type='image/png' sizes='16x16' href='/favicons/favicon-16x16.png' />
@@ -163,7 +130,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name='msapplication-TileColor' content='#da532c' />
         <meta name='theme-color' content='#ffffff' />
         <title>smalltalk</title>
-      </Head>
+      </head>
 
       <body className=' bg-skin-fill  text-skin-base font-sans  '>
         <ChatContext.Provider
@@ -210,7 +177,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             currentOpenChatId,
           }}
         >
-          {children}
+          <AppRoutes />
           {alert.show && <AlertMessage alert={alert} onAlertClose={onAlertClose} />}
           {isUserNotAbleToSendFriendRequest && (
             <div className='font-mono fixed p-lg w-fit bottom-2 right-2 z-50 bg-red-200 text-red-400 rounded'>

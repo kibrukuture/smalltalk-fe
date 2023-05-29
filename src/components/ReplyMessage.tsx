@@ -1,8 +1,8 @@
 import { useContext } from 'react';
 import { RiReplyFill, RiCloseLine } from 'react-icons/ri';
-import { Message, User, Attachment } from '@/app/ChatContext';
-import { ChatContext } from '@/app/ChatContext';
-import { formatFileSize, formatTime, getFileTypeColors } from '@/app/util.fns';
+import { Message, User, Attachment } from '../ChatContext';
+import { ChatContext } from '../ChatContext';
+import { formatFileSize, formatTime } from '../util.fns';
 
 export default function ReplyMessage({
   message,

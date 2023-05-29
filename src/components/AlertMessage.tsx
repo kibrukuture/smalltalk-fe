@@ -1,6 +1,6 @@
 'use client';
 import { RiInformationLine, RiCloseLine } from 'react-icons/ri';
-import { Alert } from '@/app/ChatContext';
+import { Alert } from '../ChatContext';
 export default function AlertMessage({ alert, onAlertClose }: { alert: Alert; onAlertClose: () => void }) {
   //close
 

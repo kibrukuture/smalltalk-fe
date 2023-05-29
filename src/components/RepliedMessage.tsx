@@ -1,6 +1,6 @@
 import { useContext } from 'react';
-import { Message, User, Attachment } from '@/app/ChatContext';
-import { ChatContext } from '@/app/ChatContext';
+import { Message, User, Attachment } from '../ChatContext';
+import { ChatContext } from '../ChatContext';
 
 export default function RepliedMessage({ message, setRepliedMessageClicked }: { message: Message; setRepliedMessageClicked: React.Dispatch<React.SetStateAction<{ messageId: string; isClicked: boolean }>> }) {
   const user = JSON.parse(localStorage.getItem('user') as string) as User;

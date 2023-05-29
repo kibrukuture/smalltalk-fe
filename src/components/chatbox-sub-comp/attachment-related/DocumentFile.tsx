@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { RiPlayFill, RiDownloadLine } from 'react-icons/ri';
-import { BinFile, Attachment } from '@/app/ChatContext';
-import { formatFileSize, formatTime, abbreviateName, getFileTypeColors } from '@/app/util.fns';
+import { BinFile, Attachment } from '../../../ChatContext';
+import { formatFileSize, formatTime, abbreviateName, getFileTypeColors } from '../../../util.fns';
 
 export default function DocumentFile({ attachment }: { attachment: Attachment }) {
   return (

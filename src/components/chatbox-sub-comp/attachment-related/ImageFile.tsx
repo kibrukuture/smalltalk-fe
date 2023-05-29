@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { RiPlayFill } from 'react-icons/ri';
-import { BinFile, Attachment, User } from '@/app/ChatContext';
-import { formatFileSize } from '@/app/util.fns';
+import { BinFile, Attachment, User } from '../../../ChatContext';
+import { formatFileSize } from '../../../util.fns';
 
 export default function ImageFile({
   attachment,

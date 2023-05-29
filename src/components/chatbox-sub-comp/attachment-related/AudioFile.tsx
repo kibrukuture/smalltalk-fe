@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
 import { RiPlayFill, RiPauseFill } from 'react-icons/ri';
-import { Attachment } from '@/app/ChatContext';
-import { formatFileSize, formatTime } from '@/app/util.fns';
-import MediaPlayer from '@/components/MediaPlayer';
+import { Attachment } from '../../../ChatContext';
+import { formatFileSize, formatTime } from '../../../util.fns';
+import MediaPlayer from '../../MediaPlayer';
 // import AudioVisualizer from '@/components/AudioVisualizer';
 
 export default function AudioFile({ attachment }: { attachment: Attachment }) {
