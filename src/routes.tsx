@@ -9,9 +9,9 @@ export default function AppRoutes() {
     <Routes>
       <Route path='/signin' element={<SignIn />} />
       <Route path='/signup' element={<SignUp />} />
-      <Route path='/' element={<Chat />} />
+      <Route path='/chat' element={<Chat />} />
       <Route path='/doc/end-to-end' element={<EndToEnd />} />
-      {/* <Route path='/*' element={<div className='flex hover h-screen items-center justify-center'>404 | We couldn't find that page</div>} /> */}
+      <Route path='/*' element={<div className='flex hover h-screen items-center justify-center'>404 | We couldn't find that page</div>} />
     </Routes>
   );
 }
