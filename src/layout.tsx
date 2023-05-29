@@ -120,80 +120,65 @@ export default function RootLayout() {
 
   // console.log('all rooms: ', rooms, currentOpenChatId);
   return (
-    <html lang='en'>
-      <head>
-        <link rel='apple-touch-icon' sizes='180x180' href='/favicons/apple-touch-icon.png' />
-        <link rel='icon' type='image/png' sizes='32x32' href='/favicons/favicon-32x32.png' />
-        <link rel='icon' type='image/png' sizes='16x16' href='/favicons/favicon-16x16.png' />
-        <link rel='manifest' href='/favicons/site.webmanifest' />
-        <link rel='mask-icon' href='/favicons/safari-pinned-tab.svg' color='#5bbad5' />
-        <meta name='msapplication-TileColor' content='#da532c' />
-        <meta name='theme-color' content='#ffffff' />
-        <title>smalltalk</title>
-      </head>
-
-      <body className=' bg-skin-fill  text-skin-base font-sans  '>
-        <ChatContext.Provider
-          value={{
-            onUserSignIn,
-            onUserSignUp,
-            setError,
-            setCurrentOpenChatId,
-            setChatFriends,
-            setChats,
-            setAllChats,
-            setTyping,
-            setIsAllChatsLoading,
-            setBarCurrentTab,
-            setWallpaper,
-            setTheme,
-            setGallery,
-            setFriendRequests,
-            setIsUserNotAbleToSendFriendRequest,
-            setLastSeen,
-            setUserProfile,
-            setUser,
-            setAlert,
-            setRooms,
-            setIsChatRoomTapped,
-            isChatRoomTapped,
-            rooms,
-            alert,
-            user,
-            userProfile,
-            lastSeen,
-            isUserNotAbleToSendFriendRequest,
-            friendRequests,
-            wallpaper,
-            theme,
-            gallery,
-            barCurrentTab,
-            isAllChatsLoading,
-            typing,
-            allChats,
-            chatFriends,
-            chats,
-            error,
-            currentOpenChatId,
-          }}
-        >
-          <AppRoutes />
-          {alert.show && <AlertMessage alert={alert} onAlertClose={onAlertClose} />}
-          {isUserNotAbleToSendFriendRequest && (
-            <div className='font-mono fixed p-lg w-fit bottom-2 right-2 z-50 bg-red-200 text-red-400 rounded'>
-              <div className='h-full w-2 bg-red-500 '></div>
-              <div className='text-sm p-lg'>
-                <p>Error</p>
-                <p>You can not send friend request to this person.</p>
-              </div>
-              <button onClick={() => setIsUserNotAbleToSendFriendRequest(false)} className='p-lg absolute top-2 right-2 text-white'>
-                <RiCloseFill />
-              </button>
-            </div>
-          )}
-        </ChatContext.Provider>
-      </body>
-    </html>
+    <ChatContext.Provider
+      value={{
+        onUserSignIn,
+        onUserSignUp,
+        setError,
+        setCurrentOpenChatId,
+        setChatFriends,
+        setChats,
+        setAllChats,
+        setTyping,
+        setIsAllChatsLoading,
+        setBarCurrentTab,
+        setWallpaper,
+        setTheme,
+        setGallery,
+        setFriendRequests,
+        setIsUserNotAbleToSendFriendRequest,
+        setLastSeen,
+        setUserProfile,
+        setUser,
+        setAlert,
+        setRooms,
+        setIsChatRoomTapped,
+        isChatRoomTapped,
+        rooms,
+        alert,
+        user,
+        userProfile,
+        lastSeen,
+        isUserNotAbleToSendFriendRequest,
+        friendRequests,
+        wallpaper,
+        theme,
+        gallery,
+        barCurrentTab,
+        isAllChatsLoading,
+        typing,
+        allChats,
+        chatFriends,
+        chats,
+        error,
+        currentOpenChatId,
+      }}
+    >
+      <AppRoutes />
+      {alert.show && <AlertMessage alert={alert} onAlertClose={onAlertClose} />}
+      {isUserNotAbleToSendFriendRequest && (
+        <div className='font-mono fixed p-lg w-fit bottom-2 right-2 z-50 bg-red-200 text-red-400 rounded'>
+          <div className='h-full w-2 bg-red-500 '></div>
+          <div className='text-sm p-lg'>
+            <p>Error</p>
+            <p>You can not send friend request to this person.</p>
+          </div>
+          <button onClick={() => setIsUserNotAbleToSendFriendRequest(false)} className='p-lg absolute top-2 right-2 text-white'>
+            <RiCloseFill />
+          </button>
+        </div>
+      )}
+    </ChatContext.Provider>
   );
 }
 

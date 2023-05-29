@@ -2,18 +2,19 @@
 import { useEffect, useContext, useRef, useState } from 'react';
 import { ChatContext } from '../ChatContext';
 import ChatRoomContext, { RemotePeerVideoCallingStatus } from '../ChatRoomContext';
-import ChatBox from '@/components/ChatBox';
-import Bar from '@/components/Bar';
-import ConversationBox from '@/components/ConversationBox';
-import UserDetail from '@/components/UserDetail';
+import ChatBox from '../components/ChatBox';
+import Bar from '../components/Bar';
+import ConversationBox from '../components/ConversationBox';
+import UserDetail from '../components/UserDetail';
 import socket from '../socket.config';
-import Profile from '@/components/Profile';
-import Notificstion from '@/components/Notification';
-import Settings from '@/components/Settings';
-import { useRouter } from 'next/navigation';
+import Profile from '../components/Profile';
+import Notificstion from '../components/Notification';
+import Settings from '../components/Settings';
+// import { useRouter } from 'next/navigation';
+import { useNavigate } from 'react-router-dom';
 import { addNewMessage, deleteConversation } from '../util.fns';
 import { User } from '../ChatContext';
-import Calling from '@/components/Calling';
+import Calling from '../components/Calling';
 //import Peer from 'peerjs';
 
 // select tab
@@ -43,7 +44,7 @@ export default function Chat() {
   const { rooms, isChatRoomTapped, setRooms, currentOpenChatId, setCurrentOpenChatId, typing, setTyping, setIsAllChatsLoading, isAllChatsLoading, setUser, barCurrentTab, setFriendRequests, friendRequests, setIsUserNotAbleToSendFriendRequest } = useContext(ChatContext);
 
   // router
-  const router = useRouter();
+  const navigate = useNavigate();
 
   // ref
   const notificationRef = useRef<HTMLAudioElement>(null);
@@ -96,7 +97,7 @@ export default function Chat() {
     // on socket connect
     socket.on('connect', () => {
       const token = localStorage.getItem('logInToken');
-      if (!token) return router.push('/');
+      if (!token) return navigate('/');
 
       const user = JSON.parse(localStorage.getItem('user') as string);
 
@@ -113,7 +114,7 @@ export default function Chat() {
           socket.emit('SetupUser', data.user);
         } else {
           // user is not authenticated
-          router.push('/');
+          navigate('/');
         }
       });
 

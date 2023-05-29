@@ -10,7 +10,7 @@ import AudioFile from './chatbox-sub-comp/attachment-related/AudioFile';
 import ImageFile from './chatbox-sub-comp/attachment-related/ImageFile';
 import VideoFile from './chatbox-sub-comp/attachment-related/VideoFile';
 import DocumentFile from './chatbox-sub-comp/attachment-related/DocumentFile';
-import { ContextMenu, MenuItem, ContextMenuTrigger } from 'react-contextmenu';
+import { ContextMenu, ContextMenuItem, ContextMenuTrigger } from 'rctx-contextmenu';
 import RepliedMessage from './RepliedMessage';
 import socket from '../socket.config';
 
@@ -238,21 +238,20 @@ export const ContextMenuList = ({
     <div className='h-36   flex   gap-sm max-w-fit items-start font-mono text-skin-base text-sm z-50    '>
       <div className='choose-emoji-scroll-bar bg-skin-muted p-sm h-36  overflow-y-auto flex flex-col   items-center gap-xs rounded-xl   '>
         {emojis.map((emoji) => (
-          <MenuItem data={{ emoji }} onClick={onReactWithEmoji} key={emoji}>
+          <ContextMenuItem onClick={onReactWithEmoji} key={emoji}>
             <button key={emoji} className=''>
               {emoji}
             </button>
-          </MenuItem>
+          </ContextMenuItem>
         ))}
-        <MenuItem data={{ add: 'add' }} onClick={console.log} key='add more'>
+        <ContextMenuItem onClick={console.log} key='add more'>
           <button key={'add more emoji'} title='add more emojis'>
             <RiAddFill />
           </button>
-        </MenuItem>
+        </ContextMenuItem>
       </div>
       <div className='h-full p-lg  flex flex-col    bg-skin-muted   rounded'>
-        <MenuItem
-          data={{ reply: 'reply' }}
+        <ContextMenuItem
           onClick={() =>
             setReplyMessage({
               show: true,
@@ -266,28 +265,28 @@ export const ContextMenuList = ({
             <RiReplyLine />
             <span>Reply</span>
           </button>
-        </MenuItem>
+        </ContextMenuItem>
 
-        <MenuItem data={{ copy: 'copy' }} onClick={() => updateClipboard(message.text + (message.attachment ? message.attachment?.name : ''))} className='grow' key='copy'>
+        <ContextMenuItem onClick={() => updateClipboard(message.text + (message.attachment ? message.attachment?.name : ''))} className='grow' key='copy'>
           <button className='flex h-full  w-full items-center hover:bg-skin-hover grow px-md gap-md'>
             <RiFileCopy2Line />
             <span>Copy</span>
           </button>
-        </MenuItem>
+        </ContextMenuItem>
 
-        <MenuItem data={{ forward: 'forward' }} onClick={() => setForwardMessage({ show: true, message: message, to: [] })} className='grow' key='forward'>
+        <ContextMenuItem onClick={() => setForwardMessage({ show: true, message: message, to: [] })} className='grow' key='forward'>
           <button className='flex h-full  w-full items-center hover:bg-skin-hover grow px-md gap-md'>
             <RiShareForward2Line />
             <span>Forward</span>
           </button>
-        </MenuItem>
+        </ContextMenuItem>
         {message.senderId === user.userId && (
-          <MenuItem data={{ delete: 'delete' }} onClick={onDeleteConversation} className='grow' key='delete'>
+          <ContextMenuItem data={{ delete: 'delete' }} onClick={onDeleteConversation} className='grow' key='delete'>
             <button className='flex h-full   w-full items-center hover:bg-skin-hover grow px-md gap-md'>
               <RiDeleteBinLine />
               <span>Delete</span>
             </button>
-          </MenuItem>
+          </ContextMenuItem>
         )}
       </div>
     </div>

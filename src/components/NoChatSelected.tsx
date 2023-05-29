@@ -16,7 +16,7 @@ export default function NoChatSelected() {
           </p>
           <p>
             Check out how chat
-            <Link target='_blank' href='/doc/end-to-end/' className='underline underline-offset-2 pl-1'>
+            <Link target='_blank' to='/doc/end-to-end/' className='underline underline-offset-2 pl-1'>
               encryption works
             </Link>
           </p>

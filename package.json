@@ -13,7 +13,10 @@
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
   },
   "dependencies": {
+    "@emoji-mart/data": "^1.1.2",
+    "@emoji-mart/react": "^1.1.1",
     "browser-image-compression": "^2.0.2",
+    "date-fns": "^2.30.0",
     "emoji-mart": "^5.5.2",
     "peerjs": "^1.4.7",
     "rctx-contextmenu": "^1.4.1",
@@ -22,6 +25,7 @@
     "react-draggable": "^4.4.5",
     "react-icons": "^4.9.0",
     "react-router-dom": "^6.11.2",
+    "socket.io-client": "^4.6.1",
     "uuidv4": "^6.2.13"
   },
   "devDependencies": {
