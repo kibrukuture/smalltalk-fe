@@ -127,10 +127,10 @@ export default function VoiceCallDisplayer({
       })();
     }
     return () => {
-      socket.emit('EndCall', {
-        roomId: currentOpenChatId,
-        remotePeer: user,
-      });
+      // socket.emit('EndCall', {
+      //   roomId: currentOpenChatId,
+      //   remotePeer: user,
+      // });
     };
   }, []);
 

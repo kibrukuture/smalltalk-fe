@@ -178,7 +178,7 @@ export function getInitials(name: string) {
 // (rooms: Map<string, Room>) => void
 
 // new message, renew local rooms.
-export const addNewMessage = (roomId: string, message: Message, setRooms: (rooms: Map<string, Room>) => void) => {
+export const addNewMessage = (roomId: string, message: Message, setRooms: React.Dispatch<React.SetStateAction<Map<string, Room>>>) => {
   setRooms((prev) => {
     const newRoom = new Map<string, Room>(prev);
     const newMessages = newRoom.get(roomId)!.messages.concat(message);
@@ -187,7 +187,7 @@ export const addNewMessage = (roomId: string, message: Message, setRooms: (rooms
   });
 };
 
-export const deleteConversation = (roomId: string, messageId: string, setRooms: (rooms: Map<string, Room>) => void) => {
+export const deleteConversation = (roomId: string, messageId: string, setRooms: React.Dispatch<React.SetStateAction<Map<string, Room>>>) => {
   setRooms((prev) => {
     const newRoom = new Map<string, Room>(prev);
     const newMessages = newRoom.get(roomId)!.messages.filter((message) => message.messageId !== messageId);

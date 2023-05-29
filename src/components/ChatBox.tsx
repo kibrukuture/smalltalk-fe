@@ -1,6 +1,6 @@
 'use client';
 import React, { useState, useEffect, useContext, useRef } from 'react';
-import { ChatContext, Message, Room, BinFile, User, Link, EmojiType } from '../ChatContext';
+import { ChatContext, Message, Room, BinFile, User, Link, Attachment as AttachmentType } from '../ChatContext';
 import { RiVidiconFill, RiImageLine, RiFileLine, RiArrowGoBackFill, RiAttachmentLine, RiPhoneFill, RiMore2Fill, RiSendPlaneFill, RiLock2Fill, RiMic2Line, RiDeleteBin6Line, RiDeleteBin6Fill, RiCamera3Line, RiLink } from 'react-icons/ri';
 import ChatRoomContext, { RemotePeerVideoCallingStatus } from '../ChatRoomContext';
 import { BsEmojiLaughingFill } from 'react-icons/bs';
@@ -26,8 +26,8 @@ import ImageViewer from './ImageViewer';
 import ReplyMessage from './ReplyMessage';
 import ForwardMessage from './ForwardMessage';
 import * as linkify from 'linkifyjs';
-// import { formatTime } from '../util.fns';
-// import Peer, { MediaConnection } from 'peerjs';
+import { formatTime } from '../util.fns';
+import Peer, { MediaConnection } from 'peerjs';
 
 export default function ChatBox() {
   // local storage
@@ -71,13 +71,13 @@ export default function ChatBox() {
 
   const [imageViewer, setImageViewer] = useState({
     show: false,
-    attachment: {},
+    attachment: {} as AttachmentType,
     user: {} as User,
   });
 
   // const [remotePeerCalling, setRemotePeerCalling] = useState({
   //   isCalling: false,
-  //   peer: {} as User,
+  //   peer: null as Peer | null,
   //   roomId: '',
   // });
 
@@ -85,7 +85,7 @@ export default function ChatBox() {
   const { currentOpenChatId, setIsChatRoomTapped, rooms, setRooms, wallpaper } = useContext(ChatContext);
   const { setLocalPeer, localPeer, caller, setCaller, showVideoCallDisplayer, setShowVideoCallDisplayer, setRemotePeerCalling, remotePeerCalling, showVoiceCallDisplayer, setShowVoiceCallDisplayer } = useContext(ChatRoomContext);
 
-  let currentRoom: Room;
+  let currentRoom = {} as Room;
   if (rooms.size) currentRoom = rooms.get(currentOpenChatId as string)!;
 
   // use ref
@@ -107,7 +107,7 @@ export default function ChatBox() {
     // localPeer.on('open', (id) => {
     //   console.log('local peer id is : ', id);
     // });
-    // accept or reject call.
+    // //accept or reject call.
     // socket.on('AcceptOrRejectVideoCall', (data) => {
     //   setRemotePeerCalling({
     //     isCalling: true,
@@ -331,12 +331,12 @@ export default function ChatBox() {
   // flag is either voice or video
   const onStartCallingRemotePeer = (flag: string) => {
     // // create a peer
-    // const peer = new M(user.userId!, {
-    //   host: '/',
-    //   port: 3001,
-    // });
-    // setLocalPeer(peer);
-    // setCaller(user);
+    const peer = new Peer(user.userId!, {
+      host: '/',
+      port: 3001,
+    });
+    setLocalPeer(peer);
+    setCaller(user);
 
     if (flag === 'video') setShowVideoCallDisplayer(true);
     if (flag === 'voice') setShowVoiceCallDisplayer(true);
@@ -463,7 +463,7 @@ export default function ChatBox() {
           </div>
           <div className='flex gap-sm items-center  '>
             {/* video  */}
-            <button title={`${showVideoCallDisplayer ? "Already calling.Can't restart another" : 'Video call'}`} disabled={showVideoCallDisplayer} onClick={() => onStartCallingRemotePeer('video')} className={`${showVideoCallDisplayer && 'cursor-not-allowed'}`}>
+            <button onClick={() => onStartCallingRemotePeer('video')} title={`${showVideoCallDisplayer ? "Already calling.Can't restart another" : 'Video call'}`} disabled={showVideoCallDisplayer} className={`${showVideoCallDisplayer && 'cursor-not-allowed'}`}>
               <RiVidiconFill className='font-bold' />
             </button>
             {/* audio  */}
@@ -531,7 +531,7 @@ export default function ChatBox() {
             <span>{linkInMessage.url}</span>
           </div>
         )}
-        {replyMessage.show && <ReplyMessage setRepliedMessageClicked={setRepliedMessageClicked} message={replyMessage.message} setReplyMessage={setReplyMessage} />}
+        {replyMessage.show && <ReplyMessage message={replyMessage.message} setReplyMessage={setReplyMessage} />}
         <form onSubmit={onChatMessageSend} className='flex gap-xs items-center text-skin-muted rounded p-md z-10'>
           <div className='flex items-center  basis-0 shrink grow bg-black p-md rounded'>
             {

@@ -1,7 +1,6 @@
 import React, { useRef, useState } from 'react';
-import { User } from '../ChatContext';
 import { RiDownloadLine, RiZoomInLine, RiZoomOutLine, RiCloseFill } from 'react-icons/ri';
-import { Attachment } from '../ChatContext';
+import { Attachment, User } from '../ChatContext';
 import { formatFileSize } from '../util.fns';
 
 export default function ImageViewer({
@@ -17,9 +16,9 @@ export default function ImageViewer({
     React.SetStateAction<{
       show: boolean;
       attachment: Attachment;
+      user: User;
     }>
   >;
-  user: User;
 }) {
   const [currentZoomLevel, setCurrentZoomLevel] = useState<number>(1);
   const imageRef = useRef<HTMLImageElement>(null);

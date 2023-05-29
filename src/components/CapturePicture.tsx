@@ -10,53 +10,51 @@ export default function CapturePicture({ onGetCapturePicture, onGetVideoRecord, 
   const videoMediaChunksRef = useRef<Blob[]>([]);
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      if (captureVideoRef.current !== null) {
-        // remove previous video stream
-        if (isVideoRecord) pictureStream!.getTracks().forEach((track) => track.stop());
-        const video = captureVideoRef.current;
-        const constraints = {
-          video: true,
-          audio: isVideoRecord,
-        };
-        navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
-          video.srcObject = stream;
-          video.play();
-          video.muted = true;
-          setPictureStream(stream);
+    if (captureVideoRef.current !== null) {
+      // remove previous video stream
+      if (isVideoRecord) pictureStream!.getTracks().forEach((track) => track.stop());
+      const video = captureVideoRef.current;
+      const constraints = {
+        video: true,
+        audio: isVideoRecord,
+      };
+      navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
+        video.srcObject = stream;
+        video.play();
+        video.muted = true;
+        setPictureStream(stream);
 
-          if (isVideoRecord) {
-            const videoMedia = new MediaRecorder(stream /*, { mimeType: 'video/webm; codecs=vp9' }*/);
-            setVideoRecordMedia(videoMedia);
+        if (isVideoRecord) {
+          const videoMedia = new MediaRecorder(stream /*, { mimeType: 'video/webm; codecs=vp9' }*/);
+          setVideoRecordMedia(videoMedia);
 
-            videoMedia.ondataavailable = (e) => {
-              videoMediaChunksRef.current.push(e.data);
-            };
-            videoMedia.start();
+          videoMedia.ondataavailable = (e) => {
+            videoMediaChunksRef.current.push(e.data);
+          };
+          videoMedia.start();
 
-            // on stop
+          // on stop
 
-            videoMedia.onstop = () => {
-              console.log(videoMediaChunksRef.current, videoMedia.mimeType);
+          videoMedia.onstop = () => {
+            console.log(videoMediaChunksRef.current, videoMedia.mimeType);
 
-              (async function (blobs: Blob) {
-                const dataUrls = (await convertBlobToDataUrl(blobs)) as string;
+            (async function (blobs: Blob) {
+              const dataUrls = (await convertBlobToDataUrl(blobs)) as string;
 
-                onGetVideoRecord(dataUrls, blobs.size);
-                //          const audioBlob = new Blob(audioRecordDataRef.current, { type: 'audio/webm' });
+              onGetVideoRecord(dataUrls, blobs.size);
+              //          const audioBlob = new Blob(audioRecordDataRef.current, { type: 'audio/webm' });
 
-                console.log(dataUrls);
-              })(new Blob(videoMediaChunksRef.current, { type: 'video/mp4' }));
+              console.log(dataUrls);
+            })(new Blob(videoMediaChunksRef.current, { type: 'video/mp4' }));
 
-              // stop video stream
-              stream.getTracks().forEach((track) => track.stop());
-              videoMediaChunksRef.current.length = 0; // clean up.
-              setShowCapturePicture(false);
-              setVideoRecordMedia(null);
-            };
-          }
-        });
-      }
+            // stop video stream
+            stream.getTracks().forEach((track) => track.stop());
+            videoMediaChunksRef.current.length = 0; // clean up.
+            setShowCapturePicture(false);
+            setVideoRecordMedia(null);
+          };
+        }
+      });
     }
   }, [isVideoRecord]);
 

@@ -1,4 +1,4 @@
-import { createContext } from 'react';
+import React, { createContext } from 'react';
 
 export type Connection = {
   id: string;
@@ -203,6 +203,8 @@ export type UserProfile = { url: string };
 
 export type Tab = 'chat' | 'profile' | 'setting' | 'notification';
 export type Theme = 'light' | 'dark' | 'system';
+
+type Fn = React.Dispatch<React.SetStateAction<Map<string, Room>>>;
 export const ChatContext = createContext({
   onUserSignIn: (user: any) => {},
   onUserSignUp: (user: User) => {},
@@ -223,7 +225,7 @@ export const ChatContext = createContext({
   setUserProfile: (userProfile: UserProfile) => {},
   setUser: (user: User) => {},
   setAlert: (alert: Alert) => {},
-  setRooms: (rooms: Map<string, Room>) => {},
+  setRooms: ((rooms: Map<string, Room>) => {}) as React.Dispatch<React.SetStateAction<Map<string, Room>>>,
   setIsChatRoomTapped: (isChatRoomTapped: boolean) => {},
   isChatRoomTapped: false,
   rooms: new Map<string, Room>(),
