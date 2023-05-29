@@ -388,5 +388,5 @@ export async function scrapWebsite(url: string) {
 }
 
 export function hostedAt() {
-  return import.meta.env.prod ? import.meta.env.VITE_REMOTE_HOST : import.meta.env.VITE_LOCAL_HOST;
+  return import.meta.env.prod ? 'tolbel-express-server-production.up.railway.app' : 'localhost:8000';
 }
