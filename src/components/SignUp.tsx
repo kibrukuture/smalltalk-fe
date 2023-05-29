@@ -99,6 +99,7 @@ export default function SignUp() {
           <div className='flex flex-col gap-sm relative'>
             <label aria-label='Password' className='relative'>
               <input
+                type='password'
                 autoComplete='on'
                 onFocus={() => setPasswordFocused(true)}
                 onBlur={() => setPasswordFocused(false)}
