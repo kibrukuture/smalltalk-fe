@@ -29,6 +29,7 @@ export default function SignIn() {
           <div className='flex flex-col gap-sm'>
             <label aria-label='email or username'>
               <input
+                autoComplete='on'
                 placeholder='Email or Username'
                 value={user.email}
                 onChange={(e) =>
@@ -46,6 +47,7 @@ export default function SignIn() {
           <div className='flex flex-col gap-sm'>
             <label aria-label='Password'>
               <input
+                autoComplete='on'
                 placeholder='Password'
                 value={user.password}
                 onChange={(e) =>
