@@ -1,0 +1,145 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital@1&family=Source+Sans+Pro&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
+
+@layer base {
+  :root {
+    --color-text-base: #565c58;
+    --color-text-muted: #8a8a8a;
+    --color-text-inverted: #000;
+    --color-fill: #fff;
+    --color-fill-muted: #dae6df;
+    --color-fill-hover: #81f087;
+    --color-button-accent: #000;
+    --color-button-accent-hover: #333;
+    --color-outline: #000;
+    --color-outline-hover: #333;
+    --font-face-head: 'Playfair Display', serif;
+    --font-face-body: 'Source Sans Pro', sans-serif;
+    --font-face-code: 'Source Code Pro', monospace;
+    --flex-grow-sm: 1;
+    --flex-grow-md: 2;
+    --flex-grow-lg: 3;
+    --flex-grow-xl: 4;
+  }
+  .dark-theme {
+    --color-text-base: #fff;
+    --color-text-muted: #ccc;
+    --color-text-inverted: #fff;
+    --color-fill: #000;
+    --color-button-accent: #fff;
+    --color-button-accent-hover: #ccc;
+  }
+}
+
+.choose-emoji-scroll-bar::-webkit-scrollbar {
+  width: 0;
+}
+
+@media screen and (min-width: 600px) {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #dfe9eb;
+  }
+
+  *::-webkit-scrollbar {
+    width: 5px;
+    width: 5px;
+  }
+  *::-webkit-scrollbar-track {
+    border-radius: 5px;
+    background-color: #dfe9eb;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background-color: gray;
+  }
+}
+* {
+  box-sizing: border-box;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  0% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+input[type='range']::-webkit-slider-thumb {
+  width: 5px;
+  height: 5px;
+  background-color: teal;
+}
+
+input[type='range']::-moz-range-thumb {
+  width: 5px;
+  height: 5px;
+  background-color: teal;
+}
+
+@keyframes heartbit {
+  0% {
+    background-color: transparent;
+  }
+  50% {
+    background-color: #e2f2e2;
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+input[type='checkbox'] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  border: 2px solid #ccc;
+  outline: none;
+  transition: border-color 0.2s;
+  position: relative;
+}
+
+input[type='checkbox']:checked {
+  background-color: teal;
+  border-color: teal;
+}
+
+input[type='checkbox']:checked + label {
+  color: teal;
+}
+
+@keyframes checkmark-animate {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(-45deg) scale(0.5);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(-45deg) scale(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(45deg) scale(1);
+  }
+}
