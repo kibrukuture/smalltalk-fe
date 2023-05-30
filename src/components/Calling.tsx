@@ -1,7 +1,6 @@
 import { useRef, useEffect, useContext } from 'react';
 import { RiPhoneFill, RiChatVoiceFill, RiVideoChatFill } from 'react-icons/ri';
 import { User } from '../ChatContext';
-import Draggable from 'react-draggable';
 import socket from '../socket.config';
 import ChatRoomContext, { RemotePeerVideoCallingStatus } from '../ChatRoomContext';
 import { tolbelP2PHostedAt } from '../util.fns';
@@ -94,39 +93,36 @@ export default function Calling() {
     });
   };
   return (
-    <Draggable>
-      {/* <button className='sr-only' ref={invisibleBtnRef}></button> */}
-      <div className='z-50 cursor-auto  flex gap-sm rounded-full items-center bg-black text-skin-muted fixed top-5 right-5 p-lg '>
-        <div className='relative'>
-          <button className='relative overflow-hidden text-skin-muted w-8 h-8 shadow-default flex items-center justify-center   rounded-full '>
-            <img className='object-cover h-12 w-12 ' src={remotePeerCalling.peer.avatarUrl} alt='' />
-          </button>
-        </div>
-        <div className='flex flex-col '>
-          <p>{remotePeerCalling.peer.name}</p>
-          <p className='text-xs font-mono flex items-center gap-xs '>
-            <span>{remotePeerCalling.flag === 'video' ? <RiVideoChatFill size={15} /> : <RiChatVoiceFill size={15} />}</span>
-            <span> {remotePeerCalling.flag === 'video' ? 'Video' : 'Voice'} Call </span>
-            <span className='relative flex h-3 w-3'>
-              <span className='animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75'></span>
-              <span className='relative inline-flex rounded-full h-3 w-3 bg-sky-500'></span>
-            </span>
-          </p>
-        </div>
-        <div className='flex gap-sm items-center '>
-          <button onClick={onRejectCall} title='close' className='bg-red-500 text-white h-8 w-8 rounded-full flex items-center justify-center p-sm'>
-            <span className='transform rotate-[135deg] cursor-pointer'>
-              <RiPhoneFill />
-            </span>
-          </button>
-          <button onClick={onAcceptCall} title='answer' className='bg-green-500 text-white h-8 w-8 rounded-full flex items-center justify-center p-sm'>
-            <RiPhoneFill className='cursor-pointer' />
-          </button>
-        </div>
-        {/* incoming call audio  */}
-        <button ref={playAudioRef} className='sr-only'></button>
-        <audio ref={incomingCallAudioRef} loop={true} src='/sound-effects/incoming-call.wav' preload='auto' />
+    <div className='z-50 cursor-auto  flex gap-sm rounded-full items-center bg-black text-skin-muted fixed top-5 right-5 p-lg '>
+      <div className='relative'>
+        <button className='relative overflow-hidden text-skin-muted w-8 h-8 shadow-default flex items-center justify-center   rounded-full '>
+          <img className='object-cover h-12 w-12 ' src={remotePeerCalling.peer.avatarUrl} alt='' />
+        </button>
       </div>
-    </Draggable>
+      <div className='flex flex-col '>
+        <p>{remotePeerCalling.peer.name}</p>
+        <p className='text-xs font-mono flex items-center gap-xs '>
+          <span>{remotePeerCalling.flag === 'video' ? <RiVideoChatFill size={15} /> : <RiChatVoiceFill size={15} />}</span>
+          <span> {remotePeerCalling.flag === 'video' ? 'Video' : 'Voice'} Call </span>
+          <span className='relative flex h-3 w-3'>
+            <span className='animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75'></span>
+            <span className='relative inline-flex rounded-full h-3 w-3 bg-sky-500'></span>
+          </span>
+        </p>
+      </div>
+      <div className='flex gap-sm items-center '>
+        <button onClick={onRejectCall} title='close' className='bg-red-500 text-white h-8 w-8 rounded-full flex items-center justify-center p-sm'>
+          <span className='transform rotate-[135deg] cursor-pointer'>
+            <RiPhoneFill />
+          </span>
+        </button>
+        <button onClick={onAcceptCall} title='answer' className='bg-green-500 text-white h-8 w-8 rounded-full flex items-center justify-center p-sm'>
+          <RiPhoneFill className='cursor-pointer' />
+        </button>
+      </div>
+      {/* incoming call audio  */}
+      <button ref={playAudioRef} className='sr-only'></button>
+      <audio ref={incomingCallAudioRef} loop={true} src='/sound-effects/incoming-call.wav' preload='auto' />
+    </div>
   );
 }
