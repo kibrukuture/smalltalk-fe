@@ -4,6 +4,7 @@ import { User } from '../ChatContext';
 import Draggable from 'react-draggable';
 import socket from '../socket.config';
 import ChatRoomContext, { RemotePeerVideoCallingStatus } from '../ChatRoomContext';
+import { tolbelP2PHostedAt } from '../util.fns';
 import { ChatContext } from '../ChatContext';
 import Peer from 'peerjs';
 
@@ -45,7 +46,8 @@ export default function Calling() {
   // call accepted
   const onAcceptCall = () => {
     remotePeerCalling.flag === 'video' ? setShowVideoCallDisplayer(true) : setShowVoiceCallDisplayer(true);
-    const peer = new Peer(user.userId!, { host: '/', port: 3001 });
+    const tolbelP2P = tolbelP2PHostedAt();
+    const peer = new Peer(user.userId!, { host: tolbelP2P.host, port: tolbelP2P.port, secure: tolbelP2P.secure });
     setLocalPeer(peer);
     setCurrentOpenChatId(remotePeerCalling.roomId);
 

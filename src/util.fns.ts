@@ -387,6 +387,16 @@ export async function scrapWebsite(url: string) {
   return data;
 }
 
+let dev = true;
 export function hostedAt() {
-  return 'https://tolbel-express-server-production.up.railway.app';
+  return dev ? 'http://localhost:8000' : 'https://tolbel-express-server-production.up.railway.app';
+}
+
+// https://tolbel-p2p-server.onrender.com/ (Peer to Peer server at this host)
+export function tolbelP2PHostedAt() {
+  return {
+    host: 'tolbel-p2p-server.onrender.com',
+    port: 443,
+    secure: true,
+  };
 }

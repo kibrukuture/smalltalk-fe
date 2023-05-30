@@ -13,9 +13,6 @@ import { v4 as uuidv4 } from 'uuid';
 import BinaryFileModal from './chatbox-sub-comp/BinaryFileModal';
 import BinFileLoading from './chatbox-sub-comp/BinFileLoadig';
 import { addNewMessage, scrapWebsite } from '../util.fns';
-import data from '@emoji-mart/data';
-import Picker from '@emoji-mart/react';
-import { ContextMenuTrigger } from 'rctx-contextmenu';
 import ChatBoxContextMenu from './ChatBoxContextMenu';
 import VideoCallDisplayer from './VideoCallDisplayer';
 import VoiceCallDisplayer from './VoiceCallDisplayer';
@@ -26,8 +23,12 @@ import ImageViewer from './ImageViewer';
 import ReplyMessage from './ReplyMessage';
 import ForwardMessage from './ForwardMessage';
 import * as linkify from 'linkifyjs';
-import { formatTime } from '../util.fns';
-import Peer, { MediaConnection } from 'peerjs';
+import { tolbelP2PHostedAt } from '../util.fns';
+import Peer from 'peerjs';
+import EmojiPickerData from '@emoji-mart/data';
+import Picker from '@emoji-mart/react';
+import { useContextMenu } from 'react-contexify';
+import 'react-contexify/ReactContexify.css';
 
 export default function ChatBox() {
   // local storage
@@ -94,6 +95,9 @@ export default function ChatBox() {
   const outGoingCallAudioRef = useRef<HTMLAudioElement>(null);
   const audioRecordDataRef = useRef([] as Blob[]);
   const invisibleStartCallBtnRef = useRef<HTMLButtonElement>(null);
+
+  // context menu
+  const { show } = useContextMenu({});
 
   // scroll to bottom
   useEffect(() => {
@@ -330,10 +334,12 @@ export default function ChatBox() {
 
   // flag is either voice or video
   const onStartCallingRemotePeer = (flag: string) => {
+    const tolbelP2P = tolbelP2PHostedAt();
     // // create a peer
     const peer = new Peer(user.userId!, {
-      host: '/',
-      port: 3001,
+      host: tolbelP2P.host,
+      port: tolbelP2P.port,
+      secure: tolbelP2P.secure,
     });
     setLocalPeer(peer);
     setCaller(user);
@@ -426,8 +432,19 @@ export default function ChatBox() {
 
     data && size > 0 && setShowBinaryFileModal(true);
   };
+  const onToggleContextMenu = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, id: string) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    show({
+      event: e,
+      id: id,
+    });
+  };
 
   if (!currentOpenChatId || rooms.size === 0) return <NoChatSelected />;
+
+  console.log(showEmojiPicker);
   return (
     <div ref={chatBoxRef} className='flex flex-col max-h-screen h-screen w-full '>
       {/* {remotePeerCalling.isCalling && <Calling remotePeer={remotePeerCalling} setShowVideoCallDisplayer={setShowVideoCallDisplayer} setRemotePeerCalling={setRemotePeerCalling} />} */}
@@ -477,43 +494,34 @@ export default function ChatBox() {
         </header>
       </div>
 
-      <div className='grow relative overflow-y-auto scroll-smooth'>
+      <div ref={chatContentRef} onContextMenu={(e) => onToggleContextMenu(e, currentOpenChatId)} className='grow relative overflow-y-auto scroll-smooth'>
         {showCapturePicture && <CapturePicture setShowCapturePicture={setShowCapturePicture} onGetCapturePicture={onGetCapturePicture} onGetVideoRecord={onGetVideoRecord} />}
-        <ContextMenuTrigger id={currentOpenChatId} className='grow'>
-          <div
-            style={{
-              backgroundImage: `${wallpaper === 'default' && 'url(./wallpaper/default.png)'}`,
-            }}
-            ref={chatContentRef}
-            className='grow gap-sm overflow-y-auto  flex flex-col w-full'
-          >
-            {currentRoom.messages.length > 0 &&
-              currentRoom.messages.map((message, id) => {
-                if (id === 0)
-                  return (
-                    <div className='min-h-full h-full p-lg flex flex-col font-mono gap-sm justify-center items-center text-skin-muted text-xs my-sm  bg-green-200 text-green-500 w-fit mx-auto rounded' key={message.messageId}>
-                      <div className=''>
-                        <p> Welcome to a new chat</p>
-                        <p> Chats are end-to-end encypted</p>
-                      </div>
-                      <p className='flex gap-sm font-tiny p-md rounded '>
-                        <span>
-                          {new Intl.DateTimeFormat('en', {
-                            year: 'numeric',
-                            month: 'short',
-                            day: 'numeric',
-                          }).format(new Date(message.createdAt))}
-                        </span>
-                        {formatAmPm(message.createdAt)}
-                      </p>
-                    </div>
-                  );
-                return <Conversation setForwardMessage={setForwardMessage} repliedMessageClicked={repliedMessageClicked} setRepliedMessageClicked={setRepliedMessageClicked} setReplyMessage={setReplyMessage} key={message.messageId} friend={currentRoom.friend} message={message} setImageViewer={setImageViewer} />;
-              })}
-          </div>
-          <ChatBoxContextMenu />
-        </ContextMenuTrigger>
 
+        {currentRoom.messages.length > 0 &&
+          currentRoom.messages.map((message, id) => {
+            if (id === 0)
+              return (
+                <div className=' p-lg flex flex-col font-mono gap-sm justify-center items-center text-skin-muted text-xs my-sm  bg-green-200 text-green-500 w-fit mx-auto rounded' key={message.messageId}>
+                  <div className=''>
+                    <p> Welcome to a new chat</p>
+                    <p> Chats are end-to-end encypted</p>
+                  </div>
+                  <p className='flex gap-sm font-tiny p-md rounded '>
+                    <span>
+                      {new Intl.DateTimeFormat('en', {
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric',
+                      }).format(new Date(message.createdAt))}
+                    </span>
+                    {formatAmPm(message.createdAt)}
+                  </p>
+                </div>
+              );
+            return <Conversation setForwardMessage={setForwardMessage} repliedMessageClicked={repliedMessageClicked} setRepliedMessageClicked={setRepliedMessageClicked} setReplyMessage={setReplyMessage} key={message.messageId} friend={currentRoom.friend} message={message} setImageViewer={setImageViewer} />;
+          })}
+
+        <ChatBoxContextMenu />
         {/* {showAnsweringAudioCall && <AnsweringAudioCall />} */}
         {showVideoCallDisplayer && <VideoCallDisplayer setShowVideoCallDisplayer={setShowVideoCallDisplayer} remotePeerOnlineStatus={remotePeerOnlineStatus} outGoingCallAudioRef={outGoingCallAudioRef} />}
         {showVoiceCallDisplayer && <VoiceCallDisplayer setShowVoiceCallDisplayer={setShowVoiceCallDisplayer} remotePeerOnlineStatus={remotePeerOnlineStatus} outGoingCallAudioRef={outGoingCallAudioRef} />}
@@ -522,7 +530,14 @@ export default function ChatBox() {
       <div className='flex flex-col  '>
         {showEmojiPicker && (
           <div className='max-w-fit  p-lg'>
-            <Picker data={data} onEmojiSelect={(emoji: any) => setChatMessage(chatMessage + emoji.native)} onClickOutside={() => setShowEmojiPicker(false)} theme='light' />
+            <Picker
+              data={EmojiPickerData}
+              onEmojiSelect={(emoji: any) => setChatMessage(chatMessage + emoji.native)}
+              onClickOutside={() => {
+                setShowEmojiPicker(false);
+              }}
+              theme='light'
+            />
           </div>
         )}
         {linkInMessage.isAny && (
@@ -535,7 +550,17 @@ export default function ChatBox() {
         <form onSubmit={onChatMessageSend} className='flex gap-xs items-center text-skin-muted rounded p-md z-10'>
           <div className='flex items-center  basis-0 shrink grow bg-black p-md rounded'>
             {
-              <button title={`${isAudioBeingRecorded ? 'Audio is being recorderd' : 'Emojis'}`} disabled={isAudioBeingRecorded} className={`${isAudioBeingRecorded && 'cursor-not-allowed'}`} type='button' onClick={() => setShowEmojiPicker(!showEmojiPicker)}>
+              <button
+                title={`${isAudioBeingRecorded ? 'Audio is being recorderd' : 'Emojis'}`}
+                disabled={isAudioBeingRecorded}
+                className={`${isAudioBeingRecorded && 'cursor-not-allowed'}`}
+                type='button'
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setShowEmojiPicker(!showEmojiPicker);
+                  console.log(':)');
+                }}
+              >
                 <BsEmojiLaughingFill />
               </button>
             }

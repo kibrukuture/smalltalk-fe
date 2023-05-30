@@ -10,9 +10,15 @@ export default function CapturePicture({ onGetCapturePicture, onGetVideoRecord, 
   const videoMediaChunksRef = useRef<Blob[]>([]);
 
   useEffect(() => {
+    // reset previous streams( audio or video)
+    // console.log('the stream', pictureStream);
+    // console.log('#####');
     if (captureVideoRef.current !== null) {
       // remove previous video stream
-      if (isVideoRecord) pictureStream!.getTracks().forEach((track) => track.stop());
+      // if (isVideoRecord) {
+      //   pictureStream!.getTracks().forEach((track) => track.stop());
+      //   setPictureStream(null);
+      // }
       const video = captureVideoRef.current;
       const constraints = {
         video: true,
@@ -20,9 +26,17 @@ export default function CapturePicture({ onGetCapturePicture, onGetVideoRecord, 
       };
       navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
         video.srcObject = stream;
-        video.play();
-        video.muted = true;
+
+        video.addEventListener('canplay', () => {
+          video.play();
+          video.muted = true;
+          // video.removeEventListener('canplay');
+        });
+
         setPictureStream(stream);
+        // setAllStreams([...allStreams, stream]);
+        // console.log(pictureStream);
+        // console.log('...prev..');
 
         if (isVideoRecord) {
           const videoMedia = new MediaRecorder(stream /*, { mimeType: 'video/webm; codecs=vp9' }*/);
@@ -36,7 +50,10 @@ export default function CapturePicture({ onGetCapturePicture, onGetVideoRecord, 
           // on stop
 
           videoMedia.onstop = () => {
-            console.log(videoMediaChunksRef.current, videoMedia.mimeType);
+            // pictureStream && pictureStream.getTracks().forEach((track) => track.stop());
+            stream.getTracks().forEach((track) => track.stop());
+            console.log(pictureStream?.getTracks(), stream.getTracks());
+            // console.log(videoMediaChunksRef.current, videoMedia.mimeType);
 
             (async function (blobs: Blob) {
               const dataUrls = (await convertBlobToDataUrl(blobs)) as string;
@@ -44,11 +61,12 @@ export default function CapturePicture({ onGetCapturePicture, onGetVideoRecord, 
               onGetVideoRecord(dataUrls, blobs.size);
               //          const audioBlob = new Blob(audioRecordDataRef.current, { type: 'audio/webm' });
 
-              console.log(dataUrls);
+              // console.log(dataUrls);
             })(new Blob(videoMediaChunksRef.current, { type: 'video/mp4' }));
 
             // stop video stream
-            stream.getTracks().forEach((track) => track.stop());
+
+            setPictureStream(null);
             videoMediaChunksRef.current.length = 0; // clean up.
             setShowCapturePicture(false);
             setVideoRecordMedia(null);
@@ -56,9 +74,40 @@ export default function CapturePicture({ onGetCapturePicture, onGetVideoRecord, 
         }
       });
     }
+
+    console.log(pictureStream);
+    return () => {
+      console.log('#### Unmounted ');
+      // console.log(pictureStream);
+    };
   }, [isVideoRecord]);
 
+  function removeActiveStreams() {
+    navigator.mediaDevices
+      .enumerateDevices()
+      .then((devices) => {
+        devices.forEach((device) => {
+          if (device.kind === 'videoinput' || device.kind === 'audioinput') {
+            navigator.mediaDevices
+              .getUserMedia({ [device.kind]: { deviceId: device.deviceId } })
+              .then((stream) => {
+                stream.getTracks().forEach((track) => {
+                  track.stop();
+                });
+              })
+              .catch((error) => {
+                console.log('Error stopping media stream:', error);
+              });
+          }
+        });
+      })
+      .catch((error) => {
+        console.log('Error enumerating media devices:', error);
+      });
+  }
+
   const onCapturePicture = () => {
+    // console.log(pictureStream?.getTracks());
     // take picture
     const canvas = document.createElement('canvas');
     canvas.width = captureVideoRef.current!.videoWidth;
@@ -66,37 +115,49 @@ export default function CapturePicture({ onGetCapturePicture, onGetVideoRecord, 
     canvas.getContext('2d')!.drawImage(captureVideoRef.current!, 0, 0);
     const data = canvas.toDataURL('image/png');
 
-    console.log(data);
+    // console.log(data);
 
     // Convert data URL to Blob
-    const byteString = Buffer.from(data.split(',')[1], 'base64');
-    const mimeString = data.split(',')[0].split(':')[1].split(';')[0];
-    const blob = new Blob([byteString], { type: mimeString });
+    const byteCharacters = atob(data.split(',')[1]);
+    const byteNumbers = new Array(byteCharacters.length);
+    for (let i = 0; i < byteCharacters.length; i++) {
+      byteNumbers[i] = byteCharacters.charCodeAt(i);
+    }
+    const byteArray = new Uint8Array(byteNumbers);
+    const blob = new Blob([byteArray], { type: 'image/png' });
 
     // send picture to parent
     onGetCapturePicture(data, blob.size);
     // stop video stream
     pictureStream!.getTracks().forEach((track) => track.stop());
+    setPictureStream(null);
     setShowCapturePicture(false);
   };
 
-  const onStopCapturingPicture = () => {
+  const onStopCapturingPicture = async () => {
+    await removeActiveStreams();
     videoMediaChunksRef.current.length = 0; // reset blob
     // stop video stream
-    pictureStream!.getTracks().forEach((track) => track.stop());
+    // pictureStream!.getTracks().forEach((track) => track.stop());
+    setPictureStream(null);
     setVideoRecordMedia(null);
     setShowCapturePicture(false);
+    // console.log('stop capturing picture', pictureStream);
   };
 
   // video record
   const onVideoRecord = () => {
+    pictureStream!.getTracks().forEach((track) => track.stop());
+    setPictureStream(null);
     videoMediaChunksRef.current.length = 0; // remove previous records if any
     setIsVideoRecord(true);
+    // console.log('from image to image and audio', pictureStream?.getTracks());
   };
 
   const onStopRecord = () => {
     videoRecordMedia && videoRecordMedia.stop();
   };
+
   return (
     <div className='fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2   w-full md:2/3 lg:w-1/2 h-full p-sm z-40 text-sm font-mono text-white '>
       <video ref={captureVideoRef} className='bg-black w-full h-full min-h-full min-w-full object-cover rounded-lg' />
