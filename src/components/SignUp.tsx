@@ -31,7 +31,7 @@ export default function SignUp() {
     //   });
     //   return;
     // }
-
+    localStorage.setItem('user-signup', JSON.stringify(user));
     onUserSignUp(user);
     // reset form
   };

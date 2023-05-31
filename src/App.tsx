@@ -1,4 +1,4 @@
-'use client';
+
 import './index.css';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -106,7 +106,7 @@ export default function RootLayout() {
         });
       }, 10000);
       // success sign in
-      navigate('/');
+      navigate('/account-verification');
     } else setError((prev) => ({ ...prev, signUp: data.message })); // could not sign in
   };
 

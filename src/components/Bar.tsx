@@ -51,7 +51,7 @@ export default function Bar() {
   );
   // if window width is greater than 768px, show the sidebar
   return windowWidth >= 768 ? (
-    <div className='bg-black justify-between px-xl flex flex-col gap-3xl'>
+    <div className='bg-black text-skin-base justify-between px-xl flex flex-col gap-3xl'>
       <div className='flex flex-col gap-lg'>
         <div className='pt-xl flex flex-col font-code '>
           <p>small</p>
