@@ -23,7 +23,7 @@ export default function Home() {
       </main>
       <footer className='w-9/12 text-xs mx-auto flex flex-col md:flex-row  items-center gap-lg'>
         <p> © {new Date().getFullYear()} tolbel. All rights reserved</p>
-        <a target='_blank' rel='noopener noreferrer' className=' flex items-center gap-sm ' href='https://github.com/kibrukuture/smalltalk-express-server'>
+        <a target='_blank' rel='noopener noreferrer' className=' flex items-center gap-sm ' href='https://github.com/kibrukuture/tolbel-express-server'>
           <RiGithubLine />
           Check out the source code on Github
         </a>
